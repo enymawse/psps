@@ -1,0 +1,17 @@
+on:
+    push:
+        branches:
+            - main
+
+name: release-please
+
+jobs:
+    release-please:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Run release-please
+              uses: googleapis/release-please-action@v4
+              id: release
+              with:
+                  token: ${{ secrets.RELEASE_PLEASE_PSPS }}
+                  release-type: node
