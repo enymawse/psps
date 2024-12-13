@@ -1,20 +1,26 @@
 // @ts-check
-const eslint = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const angular = require('angular-eslint');
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
+import js from '@eslint/js';
+import {
+    configs as tsEslintConfigs,
+    config as tsEslintConfig,
+} from 'typescript-eslint';
+import {
+    configs as angularConfigs,
+    processInlineTemplates,
+} from 'angular-eslint';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
-module.exports = tseslint.config(
+export default tsEslintConfig(
     {
         files: ['**/*.ts'],
         extends: [
-            eslint.configs.recommended,
-            ...tseslint.configs.recommended,
-            ...tseslint.configs.stylistic,
-            ...angular.configs.tsRecommended,
+            js.configs.recommended,
+            ...tsEslintConfigs.recommended,
+            ...tsEslintConfigs.stylistic,
+            ...angularConfigs.tsRecommended,
             eslintPluginPrettierRecommended,
         ],
-        processor: angular.processInlineTemplates,
+        processor: processInlineTemplates,
         rules: {
             '@angular-eslint/directive-selector': [
                 'error',
@@ -37,8 +43,8 @@ module.exports = tseslint.config(
     {
         files: ['**/*.html'],
         extends: [
-            ...angular.configs.templateRecommended,
-            ...angular.configs.templateAccessibility,
+            ...angularConfigs.templateRecommended,
+            ...angularConfigs.templateAccessibility,
         ],
         rules: {},
     },
