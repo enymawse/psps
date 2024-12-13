@@ -1,9 +1,9 @@
+name: Release Automation
+
 on:
     push:
         branches:
             - main
-
-name: release-please
 
 jobs:
     release-please:

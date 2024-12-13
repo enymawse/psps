@@ -1,4 +1,4 @@
-name: psps ci
+name: Docker CI/CD
 
 on:
     push:
