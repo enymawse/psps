@@ -4,11 +4,17 @@ on:
     push:
         branches:
             - main
+        paths:
+            - 'src/**'
+            - 'package.json'
+            - 'Dockerfile'
+            - 'public/**'
         tags:
             - 'v*.*.*'
 
 jobs:
     build_and_push:
+        if: contains(github.event.head_commit.message, 'feat') || contains(github.event.head_commit.message, 'fix') || contains(github.event.head_commit.message, 'perf')
         runs-on: ubuntu-latest
         permissions:
             packages: write
@@ -46,6 +52,7 @@ jobs:
             - name: Build and push Docker image
               uses: docker/build-push-action@v6
               with:
+                  platforms: linux/amd64,linux/arm64,linux/arm/v7
                   push: true
                   tags: |
                       ghcr.io/enymawse/psps:${{ github.ref_name == 'main' && 'rolling' || steps.meta.outputs.tags }}
